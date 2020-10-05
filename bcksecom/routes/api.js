@@ -21,16 +21,46 @@ const router = express.Router();
 //                     res: es la información que se le enviara al solicitante
 //                     next: es un método para llamar a la siguiente promesa en la cola.
 //                             MIDLEWARES.
+const productosRoutes = require('./api/productos');
+
 
 router.get('/version', (req, res)=>{
     let versionObj = {
-         app:"Simple Ecommerce SECOM API",
-         version: "0.0.0.1",
-         state: "alpha"
+        app:"Simple Ecommerce SECOM API",
+        version: "0.0.0.1",
+        state: "alpha"
         }
     res.status(200).json(versionObj);
     }
 );
 
+router.use('/productos',productosRoutes);
+/*
+router.get('/param/:edad',(req,res)=>{
+    var edad = parseInt(req.params.edad);
+    res.status(200).json({"Edad":edad});
+});
 
+router.post('/new',(req,res)=>{
+        // $_POST datos del formulario http
+        //let msg = req.body.msg;
+        //es6 destructuring
+        let { msg } = req.body;
+        res.status(200).json ({"Mensaje":msg});
+}); // new
+
+router.put('/update/:id',(req,res)=>{
+    let { id } = req.params;
+    id = parseInt(id);
+    let { edad } = req.body;
+
+    res.status(200).json ({id, edad});
+});
+
+router.delete('/delete/:id',(req,res)=>{
+    let { id } = req.params;
+    id = Number(id);
+    res.status(200).json({id});
+});
+*/
 module.exports = router;
