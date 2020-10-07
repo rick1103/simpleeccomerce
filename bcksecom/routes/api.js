@@ -22,7 +22,7 @@ const router = express.Router();
 //                     next: es un método para llamar a la siguiente promesa en la cola.
 //                             MIDLEWARES.
 const productosRoutes = require('./api/productos');
-
+const productosRoutes2 = require('./api/productosdb');
 
 router.get('/version', (req, res)=>{
     let versionObj = {
@@ -35,6 +35,8 @@ router.get('/version', (req, res)=>{
 );
 
 router.use('/productos',productosRoutes);
+router.use('/productosdb',productosRoutes2);
+
 /*
 router.get('/param/:edad',(req,res)=>{
     var edad = parseInt(req.params.edad);
