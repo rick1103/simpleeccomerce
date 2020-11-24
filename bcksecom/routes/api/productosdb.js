@@ -46,6 +46,19 @@ router.get('/one/:id', (req, res) => {
     });
 });
 
+router.get('/top', (req,res)=>{
+    productModel.getTopTen( (err, productos)=>{
+        if (err) {
+            console.log(err);
+            return res.status(503).json({
+                "error": "Algo salio mal."
+            });
+        }
+        return res.status(200).json(productos);
+    }
+    );
+});
+
 router.post('/new', (req, res) => {
     const {
         sku,

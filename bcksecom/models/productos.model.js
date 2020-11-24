@@ -29,6 +29,18 @@ function initModel() {
         )
     }
 
+    model.getTopTen = function ( handler) {
+        db.all("SELECT * from productos order by sales desc limit 10;", [],
+            function (err, rows) {
+                if (err) {
+                    return handler(err, null);
+                } else {
+                    return handler(null, rows || []);
+                }
+            }
+        )
+    }
+
     model.addOne = function (sku, name, price, stock, handler) {
         db.run(
             "INSERT INTO productos (sku, name, price, stock, sales) VALUES (?, ?, ?, ?, 0);",
