@@ -5,6 +5,7 @@ const fs = require("fs");
 const { request } = require("../../app");
 let router = express.Router();
 
+
 let productosArray = [];
 
 const writeToFile = ()=>{
