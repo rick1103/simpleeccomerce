@@ -7,19 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('bcksecom:server');
 var http = require('http');
-var MongoDB = require('../models/dbm');
-
-(async ()=>{
-try {
-  var db = await MongoDB.getDb();
-  if(db){
-    console.log("conectado a la Base de Datos");
-  }
-} catch (ex) {
-  console.log(ex);
-  process.exit(1);
-}
-})();
 
 /**
  * Get port from environment and store in Express.
