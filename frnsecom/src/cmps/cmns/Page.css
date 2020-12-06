@@ -1,0 +1,8 @@
+.page{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #999;
+    padding: 1em;
+    min-height: 100vh;
+}

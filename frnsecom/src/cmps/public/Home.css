@@ -1,0 +1,19 @@
+.loginSection{
+    width: 100%;
+    align-self: center;
+    justify-self: flex-end;
+    margin-bottom: 2em;
+    margin-top: 50vh;
+    
+}
+
+.loginSection button{
+    box-sizing: border-box;
+    border: 1px solid #000;
+    background-color: #fff;
+    border-radius: 21px;
+    padding: 1em;
+    box-shadow: 1px 1px 3px #000;
+    margin: 1em;
+    font-weight: bold;
+}

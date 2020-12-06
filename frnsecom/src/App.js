@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import Page from './cmps/cmns/Page';
+import Home from './cmps/public/Home';
 
 function Mensaje( {children} ){
   return(
@@ -19,11 +21,7 @@ function Quotes ( {text} ){
 function App() {
   return (
     <div className="App">
-      <Mensaje>Mensaje a Mostrar</Mensaje>
-      <Mensaje>
-        <Quotes text="Lo dijo el ingeniero."/>
-      </Mensaje>
-      <Mensaje></Mensaje>
+     <Home/>
     </div>
   );
 }
