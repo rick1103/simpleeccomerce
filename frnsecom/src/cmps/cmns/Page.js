@@ -1,14 +1,22 @@
+import Footer from "./Footer";
 import Header from "./Header";
 import "./Page.css";
 
-const Page = ( {children, headding} ) =>{
+const Page = ( {children, headding, footer} ) =>{
+    const hofset = (41*((headding && true) ? 1:0)) + (59*((footer && true) ? 1:0));
     let cssStyles = {
-        "minheight": `calc(100vh${(headding && true) ? '56px' : ''})`,
+        "height": (hofset > 0) ? `calc(100vh - ${hofset}px)`: `100%`,
+        "marginTop": (hofset > 0) ? `41px`: '0px'
+    }
+    let cssStylesContent = {
+        "minHeight": (hofset > 0) ? `calc(100vh - ${hofset}px)`: `100%`,
+        
     }
     return(
-        <section className="page">
+        <section className="page" style={cssStyles}>
             {(headding && true ? (<Header>{headding}</Header>) : null)}
-            <section style={cssStyles}>{children}</section>
+            <section className="content" style={cssStylesContent}>{children}</section>
+            {(footer & true ? (<Footer></Footer>): null)}
         </section>
     )
 }

@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Page from '../cmns/Page';
 import Field from '../cmns/Field';
+import { Link } from 'react-router-dom';
 
 //Componente que maneja el State
 //React el State es gestionar en variables los valores dinámicos del componente
@@ -42,11 +43,12 @@ const Login = ()=> {
         console.log(password);
         }
         return(
-            <Page headding="Iniciar Sesión">
+            <Page headding="Iniciar Sesión" footer={true}>
                 <section className="loginSection">
                     <Field id="email" caption="Correo: " type="text" value={form.email} onChange={onChange} />
                     <Field id="password" caption="Contraseña: " type="password" value={form.password} onChange={onChange} />
                     <button onClick={onLogin}>Login</button>
+                    <Link to="/">Go Home</Link>
                 </section>
             </Page>
         )

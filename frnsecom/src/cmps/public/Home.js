@@ -1,12 +1,18 @@
+import {useState} from 'react';
+import {Redirect} from 'react-router-dom';
 import Page from '../cmns/Page';
 import "./Home.css";
 
-const Home = ( {children} )=>{
+const Home = ( {} )=>{
+    let [redirect, setRedirect] = useState("");
+    if (redirect !==""){
+        return(<Redirect to={redirect}></Redirect>)
+    }
     return(
-        <Page headding="Principal">
+        <Page headding="Principal" footer={true}>
             <section className="loginSection">
-                <button>Login</button>
-                <button>Signin</button>
+                <button onClick={(e)=>{setRedirect("/login")}}>Login</button>
+                <button onClick={(e)=>{setRedirect("/sigin")}}>Signin</button>
             </section>
         </Page>
     )

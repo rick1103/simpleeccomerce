@@ -1,7 +1,11 @@
 .page{
-    flex-direction: column;
     box-sizing: border-box;
-    background-color: #999;
+    background-color: #fff;
     padding: 1em;
-    min-height: 100vh;
+    overflow: auto;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
 }
