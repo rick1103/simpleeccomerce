@@ -7,30 +7,31 @@ router.get('/', function(req, res, next) {
 });
 
 router.get(
-  '/info', 
-  function(req,res){
-    var infoObj = {}; // $infoObj = array()
-    infoObj.cuenta = 1508199500157;
-    infoObj.nombre = "Ricardo Garcia";
-    infoObj.email = "rjozze10@gmail.com";
+  '/info',
+  function(req, res) {
+    var infoObj = {}; // $infoObj = array();
+    infoObj.cuenta = "0801198412349";
+    infoObj.nombre = "Orlando J Betancourth";
+    infoObj.email = "obetancourthunicah@gmail.com";
     res.json(infoObj);
   }
-); //get info
+); // get Info
 
 router.get(
-  '/hook', 
+  '/hook',
   function(req, res){
-    res.render("hook", {})
+    res.render("hook", {});
   }
-  ); //get hook
+);// get hook
 
 router.post(
-  '/hook', 
+  '/hook',
   function(req, res){
     var body = req.body;
     console.log(body);
     res.render("hook", body);
   }
-  ); //post hook
+  
+);//post hook
 
 module.exports = router;

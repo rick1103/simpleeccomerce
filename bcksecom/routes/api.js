@@ -1,96 +1,46 @@
 const express = require('express');
 const router = express.Router();
 
+let passport = require('passport');
+let passportJWT = require('passport-jwt');
+
+let extractJWT = passportJWT.ExtractJwt;
+let strategyJWT = passportJWT.Strategy;
+
+passport.use(
+  new strategyJWT(
+    {
+      jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.JWT_SECRET
+    },
+    (payload, next)=>{
+       var user = payload;
+       return next(null, user);
+    }
+  )
+)
+
+const heartBeat = (req, res)=>{
+  res.status(200).json({ok:true});
+}
+const jwtAuthMiddleware = passport.authenticate('jwt', {session:false});
+
 /**
- * Router Principal para el api de SECCOM
- * 
- * @author Ricardo Jose Garcia Santos
+ * Router Principal para el api de SECOM
+ *
+ * @author Orlando J Betancourth
  * @date 2020-10-05
  * @namespace api
  */
 
-// para que es necesario router
-// R es el mecanismo que permite registrar rutas
-//   y controladores (handlers) para el servidor
-//   web.
-
-//configurar las rutas en router
-//Métodos de registro
-//get  --- consulta --- select
-//post --- crear recursos --- insert
-//put  --- actualizar un recurso --- update
-//delete  --- borrar un recurso --- delete
-//-----------------------------------------
-
-//dos parámetros
-//1) path: constante (texto) de una ruta -- toda ruta debe empezar con /
-//2) handler: función (req, res, next) { }
-//                     req: información que se recibe de la petición
-//                     res: es la información que se le enviara al solicitante
-//                     next: es un método para llamar a la siguiente promesa en la cola.
-//                             MIDLEWARES.
-const productosRoutes = require('./api/productos');
-const productosRoutes2 = require('./api/productosdb');
-
-/**
- * Ruta que permite revisar la version vigente de el API
- * @method version
- * @memberof api
- * 
- * @returns Objeto JSON con los datos generales del api
- */
-
-router.get('/version', (req, res)=>{
-    let versionObj = {
-        app:"Simple Ecommerce SECOM API",
-        version: "0.0.0.1",
-        state: "alpha"
-        }
-    res.status(200).json(versionObj);
-    }
-);
-
-router.use('/productos',productosRoutes);
-router.use('/productosdb',productosRoutes2);
+const securityRoutes = require('./api/seguridad');
+const productosRoutes = require('./api/productosdb');
+const truchasRoutes = require('./api/truchas');
 
 
-router.get('/param/:edad',(req,res)=>{
-    var edad = parseInt(req.params.edad);
-    res.status(200).json({"Edad":edad});
-});
-
-router.post('/new',(req,res)=>{
-        // $_POST datos del formulario http
-        //let msg = req.body.msg;
-        //es6 destructuring
-        let { msg } = req.body;
-        res.status(200).json ({"Mensaje":msg});
-}); // new
-
-/**
- * Ruta que permite modificar ub elemento de Productos
- * @method update
- * @memberof api
- * 
- * @param {string} id identificador del registro(params)
- * @param {string} edad Edad a actualizar eb el registro (body)
- * 
- * @returns {json} Resumen de la Edad modificada en el registro
- */
-
-
-router.put('/update/:id',(req,res)=>{
-    let { id } = req.params;
-    id = parseInt(id);
-    let { edad } = req.body;
-
-    res.status(200).json ({id, edad});
-});
-
-router.delete('/delete/:id',(req,res)=>{
-    let { id } = req.params;
-    id = Number(id);
-    res.status(200).json({id});
-});
+router.use('/security', securityRoutes);
+router.get('/heartbeat', jwtAuthMiddleware, heartBeat);
+router.use('/productos', jwtAuthMiddleware, productosRoutes);
+router.use('/truchas', jwtAuthMiddleware, truchasRoutes);
 
 module.exports = router;
